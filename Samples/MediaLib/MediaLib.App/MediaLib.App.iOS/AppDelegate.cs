@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
+using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
+using Microsoft.Azure.Mobile.Crashes;
 using UIKit;
 
 namespace MediaLib.App.iOS
@@ -24,6 +23,7 @@ namespace MediaLib.App.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            MobileCenter.Start("16d58b2d-bee4-46b8-9d52-c5b95a9401c6", typeof(Analytics), typeof(Crashes));
 
             return base.FinishedLaunching(app, options);
         }

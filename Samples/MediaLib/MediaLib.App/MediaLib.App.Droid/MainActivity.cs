@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.Azure.Mobile;
 
 namespace MediaLib.App.Droid
 {
@@ -16,6 +17,7 @@ namespace MediaLib.App.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            MobileCenter.Configure("9792bb02-e502-402b-8bf9-0c5724b73f24");
 
             base.OnCreate(bundle);
 
