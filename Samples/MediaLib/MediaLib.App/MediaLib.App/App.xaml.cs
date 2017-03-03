@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MediaLib.App.DataAccess;
+using MediaLib.App.Navigation;
+using MediaLib.App.View;
+using MediaLib.App.ViewModel;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
@@ -9,14 +9,21 @@ using Xamarin.Forms;
 
 namespace MediaLib.App
 {
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MediaLib.App.MainPage();
             MobileCenter.Start(typeof(Analytics), typeof(Crashes));
+
+            var allMediaViewModel = new AllMediaViewModel(new MediaRepository());
+            var initialPage = new AllMediaPage
+            {
+                BindingContext = allMediaViewModel
+            };
+            MainPage = new NavigationPage(initialPage);
+            var navigation = new NavigationService(MainPage);
+            allMediaViewModel.NavigationService = navigation;
         }
 
         protected override void OnStart()

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MediaLib.App.View.AllMediaPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="All Media" />
+            <ListView ItemsSource="{Binding Path=AllMedia}" SelectedItem="{Binding Path=SelectedMedia, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Path=Title}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Text="+" Command="{Binding Path=AddMediaCommand}"/>
+                <Button Grid.Column="1" Text="/" Command="{Binding Path=EditMediaCommand}"/>
+                <Button Grid.Column="2" Text="-" Command="{Binding Path=DeleteMediaCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
