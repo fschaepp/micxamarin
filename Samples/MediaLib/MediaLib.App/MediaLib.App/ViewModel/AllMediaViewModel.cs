@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MediaLib.App.Command;
 using MediaLib.App.Common.Interface;
@@ -15,6 +15,7 @@ namespace MediaLib.App.ViewModel
         private IDelegateCommand _addMediaCommand;
         private IDelegateCommand _editMediaCommand;
         private ICommand _deleteMediaCommand;
+
         public ObservableCollection<Media> AllMedia { get; private set; }
 
         public Media SelectedMedia
@@ -34,7 +35,11 @@ namespace MediaLib.App.ViewModel
 
         public ICommand AddMediaCommand
         {
-            get { return _addMediaCommand ?? (_addMediaCommand = new DelegateCommand(OnExecuteAddMedia)); }
+            get
+            {
+                Action onExecute = OnExecuteAddMedia;
+                return _addMediaCommand ?? (_addMediaCommand = new DelegateCommand(onExecute));
+            }
         }
 
         private void OnExecuteAddMedia()
@@ -57,8 +62,6 @@ namespace MediaLib.App.ViewModel
             get { return _deleteMediaCommand ?? (_deleteMediaCommand = new DelegateCommand(OnExecuteDeleteMedia, () => SelectedMedia != null)); }
         }
 
-        public INavigationService NavigationService { get; set; }
-
         private void OnExecuteDeleteMedia()
         {
             _mediaRepository.Delete(SelectedMedia);
@@ -66,9 +69,15 @@ namespace MediaLib.App.ViewModel
             SelectedMedia = null;
         }
 
-        public AllMediaViewModel(IMediaRepository mediaRepository)
+        public AllMediaViewModel(INavigationService navigationService, IMediaRepository mediaRepository)
+            : base(navigationService)
         {
             _mediaRepository = mediaRepository;
+        }
+
+        public override void OnNavigatedTo(PageNavigationDirection direction, params object[] parameters)
+        {
+            base.OnNavigatedTo(direction, parameters);
             LoadMedia();
         }
 
@@ -79,6 +88,6 @@ namespace MediaLib.App.ViewModel
             OnPropertyChanged(nameof(AllMedia));
         }
 
-        public override string Title => "Alle Medien";
+        public override string Title => "All Media";
     }
 }

@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿using Ninject;
 
 namespace MediaLib.App.UWP
 {
@@ -21,7 +8,7 @@ namespace MediaLib.App.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new MediaLib.App.App());
+            LoadApplication(new MediaLib.App.App(new StandardKernel()));
         }
     }
 }

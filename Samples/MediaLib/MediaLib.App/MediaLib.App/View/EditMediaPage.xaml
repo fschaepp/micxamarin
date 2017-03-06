@@ -4,9 +4,18 @@
              x:Class="MediaLib.App.View.EditMediaPage"
              Title="{Binding Path=Title}">
   <ScrollView>
-    <StackLayout>
-        <Label Text="Titel" />
-        <Entry Text="{Binding Path=Media.Title}" />
-    </StackLayout>
-  </ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label Text="Titel" />
+                <Entry Text="{Binding Path=Media.Title}" />
+            </StackLayout>
+            <Grid Grid.Row="1">
+                <Button Text="Save" Command="{Binding Path=SaveMediaCommand}"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>

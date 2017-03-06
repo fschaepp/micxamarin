@@ -1,18 +1,18 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Microsoft.Azure.Mobile;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Planning.Bindings;
 
 namespace MediaLib.App.Droid
 {
     [Activity(Label = "MediaLib.App", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        private StandardKernel _container = null;
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -22,8 +22,14 @@ namespace MediaLib.App.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+            CreateKernel();
+            var app = new App(_container);
+            LoadApplication(app);
+        }
+
+        private void CreateKernel()
+        {
+            _container = new StandardKernel();
         }
     }
 }
-

@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MediaLib.App.View.AllMediaPage">
+             x:Class="MediaLib.App.View.AllMediaPage"
+             Title="{Binding Path=Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="All Media" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding Path=AllMedia}" SelectedItem="{Binding Path=SelectedMedia, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -13,16 +17,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid>
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Text="+" Command="{Binding Path=AddMediaCommand}"/>
-                <Button Grid.Column="1" Text="/" Command="{Binding Path=EditMediaCommand}"/>
-                <Button Grid.Column="2" Text="-" Command="{Binding Path=DeleteMediaCommand}"/>
+                <Button Text="New" Command="{Binding Path=AddMediaCommand}"/>
+                <Button Grid.Column="1" Text="Edit" Command="{Binding Path=EditMediaCommand}"/>
+                <Button Grid.Column="2" Text="Delete" Command="{Binding Path=DeleteMediaCommand}"/>
             </Grid>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
