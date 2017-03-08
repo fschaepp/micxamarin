@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using MediaLib.App.View;
 using MediaLib.App.ViewModel;
 using Ninject;

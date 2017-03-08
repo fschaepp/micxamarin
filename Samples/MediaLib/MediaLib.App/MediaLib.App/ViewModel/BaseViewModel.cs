@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using MediaLib.App.Command;
 
 namespace MediaLib.App.ViewModel
 {
@@ -9,6 +10,7 @@ namespace MediaLib.App.ViewModel
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            CommandManger.RaiseCanExecuteChanged();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

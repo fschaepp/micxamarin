@@ -11,7 +11,7 @@
             </Grid.RowDefinitions>
             <StackLayout>
                 <Label Text="Titel" />
-                <Entry Text="{Binding Path=Media.Title}" />
+                <Entry Text="{Binding Path=MediaTitle}" />
             </StackLayout>
             <Grid Grid.Row="1">
                 <Button Text="Save" Command="{Binding Path=SaveMediaCommand}"/>

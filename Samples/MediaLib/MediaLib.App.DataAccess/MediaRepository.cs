@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MediaLib.App.Common.Extensions;
 using MediaLib.App.Common.Interface;
 using MediaLib.App.Common.Model;
 
@@ -28,7 +29,7 @@ namespace MediaLib.App.DataAccess
         public void Update(Media media)
         {
             var copy = new List<Media>(medias);
-            copy.Remove(media);
+            copy.RemoveSingle(m => m.Id == media.Id);
             copy.Add(media);
             medias = copy;
         }

@@ -29,7 +29,6 @@ namespace MediaLib.App.ViewModel
                 }
                 _selectedMedia = value;
                 OnPropertyChanged();
-                CommandManger.RaiseCanExecuteChanged();
             }
         }
 
@@ -37,14 +36,13 @@ namespace MediaLib.App.ViewModel
         {
             get
             {
-                Action onExecute = OnExecuteAddMedia;
-                return _addMediaCommand ?? (_addMediaCommand = new DelegateCommand(onExecute));
+                return _addMediaCommand ?? (_addMediaCommand = new DelegateCommand(OnExecuteAddMedia));
             }
         }
 
         private void OnExecuteAddMedia()
         {
-            // TODO: Navigate to Add Media Page
+            NavigationService.Navigate<EditMediaViewModel>();
         }
 
         public ICommand EditMediaCommand
