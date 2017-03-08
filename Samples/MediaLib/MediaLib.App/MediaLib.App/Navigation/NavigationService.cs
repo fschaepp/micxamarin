@@ -18,18 +18,20 @@ namespace MediaLib.App.Navigation
         {
             _container = container;
             _navigationPage = navigationPage;
-            _navigationPage.ChildRemoved += (o, e) =>
-            {
-                var vm = e.Element.BindingContext as IPageViewModel;
-                vm?.OnNavigatedFrom();
-                var activePage = _navigationPage.Navigation.NavigationStack.Last();
-                vm = activePage.BindingContext as IPageViewModel;
-                vm?.OnNavigatedTo(PageNavigationDirection.Back);
-            };
+            _navigationPage.ChildRemoved += NavigationPageRemoved;
             pageResolver.Add(typeof(AllMediaViewModel), typeof(AllMediaPage));
             pageResolver.Add(typeof(EditMediaViewModel), typeof(EditMediaPage));
         }
-        
+
+        private void NavigationPageRemoved(object o, ElementEventArgs e)
+        {
+            var vm = e.Element.BindingContext as IPageViewModel;
+            vm?.OnNavigatedFrom();
+            var activePage = _navigationPage.Navigation.NavigationStack.Last();
+            vm = activePage.BindingContext as IPageViewModel;
+            vm?.OnNavigatedTo(PageNavigationDirection.Back);
+        }
+
         public void Navigate<T>(params object[] parameters) where T : IPageViewModel
         {
             var pageType = pageResolver[typeof(T)];
